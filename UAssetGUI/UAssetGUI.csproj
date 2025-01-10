@@ -56,6 +56,9 @@
     <Delete Files="$(ProjectDir)git_commit.txt" />
   </Target>
   <ItemGroup>
+    <None Remove="Default_Blueprint.json" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="ColorfulTreeView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -130,6 +133,9 @@
     <EmbeddedResource Include="git_commit.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Default_Blueprint.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="next_patch_notes.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -892,7 +892,7 @@ namespace UAssetGUI
                         else if (pointerNode.Pointer is StructPropertyData copyingDat1)
                         {
                             if (treeView1.Focused) objectToCopy = copyingDat1;
-                            if (rowIndex >= 0 && !treeView1.Focused && copyingDat1.Value.Count > rowIndex) objectToCopy = copyingDat1.Value[rowIndex];
+                            else if (rowIndex >= 0 && !treeView1.Focused && copyingDat1.Value.Count > rowIndex) objectToCopy = copyingDat1.Value[rowIndex];
                         }
                         else if (pointerNode.Pointer is ArrayPropertyData copyingDat2)
                         {
@@ -972,6 +972,105 @@ namespace UAssetGUI
             return null;
         }
 
+        private void createBlueprintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TextPrompt replacementPrompt = new()
+            {
+                DisplayText = "Enter the internal name of the blueprint/schematic.",
+                StartPosition = FormStartPosition.CenterParent
+            };
+
+            if (replacementPrompt.ShowDialog(this) == DialogResult.OK)
+            {
+                if (tableEditor.treeView1 != null)
+                {
+                    var tableInfoNode = FindTableInfoNode(treeView1);
+                    AddBlueprints(tableInfoNode, replacementPrompt.OutputText);
+                }
+
+                MessageBox.Show(replacementPrompt.OutputText, this.Text);
+            }
+            replacementPrompt.Dispose();
+        }
+
+        private void AddBlueprints(TreeNode tableInfoNode, string itemName)
+        {
+            if (tableInfoNode is PointingTreeNode pointerNode && pointerNode.Pointer is UDataTable tableInfoDataTable)
+            {
+                string jsonFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Default_Blueprint.json");
+                string json = File.ReadAllText(jsonFilePath);
+
+                List<StructPropertyData> structPropertyDataList = [];
+
+                for (var i = 5; i >= 3; i--)
+                {
+                    var currentBlueprintName = $"Blueprint_{itemName}_{i}";
+                    var requirementsName = $"Blueprint_{itemName}_{i-1}";
+                    var defaultStructPropertyData = tableEditor.asset.DeserializeJsonObject<StructPropertyData>(json);
+                    //defaultStructPropertyData.Name.Value = FString.FromString(currentBlueprintName);
+                    var nameAsset = defaultStructPropertyData.Name.Asset;
+                    defaultStructPropertyData.Name = FName.FromString(nameAsset, currentBlueprintName);
+
+                    foreach (var propertyData in defaultStructPropertyData.Value)
+                    {
+                        if (propertyData is NamePropertyData nameProperty)
+                        {
+                            var propertyName = nameProperty.Name.Value.Value;
+                            if (propertyName == "Product_Id")
+                            {
+                                nameProperty.Value = FName.FromString(nameAsset, currentBlueprintName);
+                            }
+
+                            if (propertyName == "UnlockItemID" || propertyName == "Material1_Id")
+                            {
+                                nameProperty.Value = FName.FromString(nameAsset, requirementsName);
+                            }
+                        }
+                    }
+
+                    structPropertyDataList.Add(defaultStructPropertyData);
+                }
+
+                tableInfoDataTable.Data.AddRange(structPropertyDataList);
+
+                SetUnsavedChanges(true);
+                tableEditor?.Load();
+            }
+        }
+
+        // Method to find the "Table Info" node with dynamic suffix
+        public TreeNode FindTableInfoNode(TreeView treeView)
+        {
+            foreach (TreeNode topNode in treeView.Nodes)
+            {
+                if (topNode.Text.StartsWith("Table Info", StringComparison.OrdinalIgnoreCase))
+                {
+                    return topNode;
+                }
+
+                // If "Table Info" node is nested, search recursively
+                TreeNode found = FindTableInfoNodeRecursive(topNode);
+                if (found != null)
+                    return found;
+            }
+            return null; // "Table Info" node not found
+        }
+
+        // Recursive helper method
+        private TreeNode FindTableInfoNodeRecursive(TreeNode parent)
+        {
+            foreach (TreeNode node in parent.Nodes)
+            {
+                if (node.Text.StartsWith("Table Info", StringComparison.OrdinalIgnoreCase))
+                    return node;
+
+                TreeNode found = FindTableInfoNodeRecursive(node);
+                if (found != null)
+                    return found;
+            }
+            return null;
+        }
+
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (tableEditor == null) return;
@@ -1019,14 +1118,43 @@ namespace UAssetGUI
                         }
                         else if (pointerNode.Pointer is StructPropertyData copyingDat1 && deserializedClipboard != null)
                         {
-                            if (rowIndex < 0) return;
-                            copyingDat1.Value.Insert(rowIndex, deserializedClipboard);
+                            if (rowIndex < 0)
+                            {
+                                try
+                                {
+                                    var desStruct = tableEditor.asset.DeserializeJsonObject<StructPropertyData>(Clipboard.GetText());
+                                    if (pointerNode.Parent is PointingTreeNode parentTree && parentTree.Pointer is UDataTable masterTable)
+                                    {
+                                        masterTable.Data.Add(desStruct);
+
+                                        SetUnsavedChanges(true);
+                                        tableEditor?.Load();
+                                        return;
+                                    }
+                                }
+                                catch { }
+
+                                try
+                                {
+                                    var desPropData = tableEditor.asset.DeserializeJsonObject<PropertyData[]>(Clipboard.GetText());
+                                    copyingDat1.Value.AddRange(desPropData);
+
+                                    SetUnsavedChanges(true);
+                                    tableEditor?.Load();
+                                    return;
+                                }
+                                catch
+                                {
+
+                                }
+                            }
+                            else
+                            {
+                                copyingDat1.Value.Insert(rowIndex, deserializedClipboard);
+                            }
 
                             SetUnsavedChanges(true);
-                            if (tableEditor != null)
-                            {
-                                tableEditor.Load();
-                            }
+                            tableEditor?.Load();
                             return;
                         }
                         else if (pointerNode.Pointer is ArrayPropertyData copyingDat2 && deserializedClipboard != null)
@@ -1054,6 +1182,14 @@ namespace UAssetGUI
                                 tableEditor.Load();
                             }
                             return;
+                        }
+                        else if (pointerNode.Pointer is UDataTable copyingDat4 && deserializedClipboard != null)
+                        {
+                            var structDeserialized = tableEditor.asset.DeserializeJsonObject<StructPropertyData>(Clipboard.GetText());
+                            copyingDat4.Data.Add(structDeserialized);
+
+                            SetUnsavedChanges(true);
+                            tableEditor?.Load();
                         }
                         else
                         {

@@ -17,4 +17,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Content Update="Default_Blueprint.json">
+      <SubType>Component</SubType>
+    </Content>
+  </ItemGroup>
 </Project>

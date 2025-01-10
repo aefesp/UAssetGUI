@@ -1,0 +1,188 @@
+﻿{
+    "$type": "UAssetAPI.PropertyTypes.Structs.StructPropertyData, UAssetAPI",
+    "StructType": "PalItemRecipe",
+    "SerializeNone": true,
+    "StructGUID": "{00000000-0000-0000-0000-000000000000}",
+    "SerializationControl": "NoExtension",
+    "Operation": "None",
+    "Name": "Dummy",
+    "ArrayIndex": 0,
+    "IsZero": false,
+    "PropertyTagFlags": "None",
+    "PropertyTagExtensions": "NoExtension",
+    "Value": [
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "Product_Id",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "Dummy"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Product_Count",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 1
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.FloatPropertyData, UAssetAPI",
+            "Value": 1000,
+            "Name": "WorkAmount",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "WorkableAttribute",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 1
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "UnlockItemID",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "Dummy"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "Material1_Id",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "Dummy"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Material1_Count",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 4
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "Material2_Id",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "None"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Material2_Count",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 0
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "Material3_Id",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "None"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Material3_Count",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 0
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "Material4_Id",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "None"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Material4_Count",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 0
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.NamePropertyData, UAssetAPI",
+            "Name": "Material5_Id",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "None"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Material5_Count",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 0
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.EnumPropertyData, UAssetAPI",
+            "EnumType": "EPalEnergyType",
+            "InnerType": "EPalEnergyType",
+            "Name": "EnergyType",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": "EPalEnergyType::None"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "EnergyAmount",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": 0
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.FloatPropertyData, UAssetAPI",
+            "Value": "+0",
+            "Name": "CraftExpRate",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension"
+        },
+        {
+            "$type": "UAssetAPI.PropertyTypes.Objects.IntPropertyData, UAssetAPI",
+            "Name": "Editor_RowNameHash",
+            "ArrayIndex": 0,
+            "IsZero": false,
+            "PropertyTagFlags": "None",
+            "PropertyTagExtensions": "NoExtension",
+            "Value": -177975809
+        }
+    ]
+}
